@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- C++ 测试项目的公共配置。MarkColorNative 的编译/链接选项直接写在其 vcxproj 中。 -->
+  <Import
+    Project="OpenCV.props" />
+  <PropertyGroup>
+    <IntDir>$(MarkColorRoot)build\msbuild\obj\$(MSBuildProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental
+      Condition="'$(Configuration)' == 'Debug'">true</LinkIncremental>
+    <LinkIncremental
+      Condition="'$(Configuration)' != 'Debug'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MarkColorRoot)native\include;$(OpenCvIncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)compile.pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization
+        Condition="'$(Configuration)' == 'Debug'">Disabled</Optimization>
+      <InlineFunctionExpansion
+        Condition="'$(Configuration)' == 'Debug'">Disabled</InlineFunctionExpansion>
+      <BasicRuntimeChecks
+        Condition="'$(Configuration)' == 'Debug'">EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary
+        Condition="'$(Configuration)' == 'Debug'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions
+        Condition="'$(Configuration)' == 'Debug'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization
+        Condition="'$(Configuration)' != 'Debug'">MaxSpeed</Optimization>
+      <RuntimeLibrary
+        Condition="'$(Configuration)' != 'Debug'">MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions
+        Condition="'$(Configuration)' != 'Debug'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OpenCvLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(OpenCvWorldName).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <Target
+    Name="CopyOpenCvNativeRuntime"
+    AfterTargets="Build">
+    <Copy
+      SourceFiles="$(OpenCvBinDir)\$(OpenCvWorldName).dll"
+      DestinationFolder="$(OutDir)"
+      SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <FileWrites
+        Include="$(OutDir)$(OpenCvWorldName).dll" />
+    </ItemGroup>
+  </Target>
+</Project>

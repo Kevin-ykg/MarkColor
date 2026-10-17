@@ -1,0 +1,58 @@
+{
+  "SchemaVersion": 1,
+  "Name": "2左-上",
+  "SourcePath": "E:\\南京爱速智\\2.0设备成像方案\\色差\\膜片色差整理\\优良品\\2左-上.bmp",
+  "SourceSha256": "5FEE94F0349827380024C795BD83046D4F2DBAF4D24A9F3744C92D7F8BD4CEC4",
+  "CreatedAt": "2026-09-22T18:54:11.421765+08:00",
+  "Width": 2448,
+  "Height": 2048,
+  "Settings": {
+    "MinRadius": 25,
+    "MaxRadius": 160,
+    "MinCircularity": 0.7,
+    "MinFill": 0.7,
+    "SaturationMin": 40,
+    "DarkMax": 110,
+    "BrightContrast": 3,
+    "InnerRatio": 0.65,
+    "RoiX": 0,
+    "RoiY": 0,
+    "RoiWidth": 1,
+    "RoiHeight": 1,
+    "MaxTranslation": 0.3,
+    "MaxRotation": 10,
+    "MaxScaleChange": 0.15,
+    "PositionTolerance": 0.7,
+    "DefaultDeltaE": 3
+  },
+  "Marks": [
+    {
+      "Id": 1,
+      "Name": "黑色",
+      "InkChannel": "K（待确认）",
+      "Value": {
+        "X": 1399.877685546875,
+        "Y": 530,
+        "Radius": 71.6861801147461,
+        "Area": 14984.5,
+        "Circularity": 0.8789272079351812,
+        "L": 26.90868760441333,
+        "A": -0.06510374859528015,
+        "B": 4.534982541338898,
+        "StdL": 0.7816076452958336,
+        "StdA": 1.4958012092790407,
+        "StdB": 1.958339579198827,
+        "Blue": 56.938448201127,
+        "Green": 63.61161681837884,
+        "Red": 66.58806530848143,
+        "BackgroundL": 73.58556081370435,
+        "SampleCount": 6921,
+        "ContourCount": 204
+      },
+      "DeltaEThreshold": 3,
+      "MaxDeltaL": 0,
+      "MaxDeltaA": 0,
+      "MaxDeltaB": 0
+    }
+  ]
+}

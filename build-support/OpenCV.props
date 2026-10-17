@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- 所有项目共用的 SDK 地址。VS 中：MarkColorNative → 环境与构建配置 → OpenCV.props。
+       也可在“属性管理器”打开本属性表，查看“用户宏”。修改此处后 WPF 自动复制同步生效。 -->
+  <PropertyGroup>
+    <MarkColorRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</MarkColorRoot>
+  </PropertyGroup>
+  <PropertyGroup
+    Label="UserMacros">
+    <!-- 根目录、SDK 子目录和版本号是更换 OpenCV 时需要确认的三个配置。 -->
+    <OpenCvRoot
+      Condition="'$(OpenCvRoot)' == '' and Exists('$(MarkColorRoot)dependencies\opencv\build\include\opencv2\core.hpp')">$(MarkColorRoot)dependencies\opencv\build</OpenCvRoot>
+    <OpenCvRoot
+      Condition="'$(OpenCvRoot)' == ''">$(MarkColorRoot)dependencies\opencv\build</OpenCvRoot>
+    <OpenCvToolset
+      Condition="'$(OpenCvToolset)' == ''">vc15</OpenCvToolset>
+    <OpenCvVersion
+      Condition="'$(OpenCvVersion)' == ''">454</OpenCvVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OpenCvIncludeDir
+      Condition="'$(OpenCvIncludeDir)' == ''">$(OpenCvRoot)\include</OpenCvIncludeDir>
+    <OpenCvLibDir
+      Condition="'$(OpenCvLibDir)' == ''">$(OpenCvRoot)\x64\$(OpenCvToolset)\lib</OpenCvLibDir>
+    <OpenCvBinDir
+      Condition="'$(OpenCvBinDir)' == ''">$(OpenCvRoot)\x64\$(OpenCvToolset)\bin</OpenCvBinDir>
+    <OpenCvDebugSuffix
+      Condition="'$(Configuration)' == 'Debug'">d</OpenCvDebugSuffix>
+    <OpenCvDebugSuffix
+      Condition="'$(Configuration)' != 'Debug'"></OpenCvDebugSuffix>
+    <OpenCvWorldName>opencv_world$(OpenCvVersion)$(OpenCvDebugSuffix)</OpenCvWorldName>
+    <NativeOutputDir>$(MarkColorRoot)build\msbuild\native\$(Configuration)\</NativeOutputDir>
+  </PropertyGroup>
+  <Target
+    Name="ValidateOpenCvSdk"
+    BeforeTargets="PrepareForBuild"
+    Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error
+      Condition="'$(Platform)' != 'x64'"
+      Text="MarkColorDemo supports x64 only. Select Debug|x64 or Release|x64." />
+    <Error
+      Condition="!Exists('$(OpenCvIncludeDir)\opencv2\core.hpp')"
+      Text="OpenCV headers not found: $(OpenCvIncludeDir). Configure build-support\OpenCV.props." />
+    <Error
+      Condition="!Exists('$(OpenCvLibDir)\$(OpenCvWorldName).lib')"
+      Text="OpenCV import library not found: $(OpenCvLibDir)\$(OpenCvWorldName).lib. Check the SDK version and Debug/Release libraries." />
+    <Error
+      Condition="!Exists('$(OpenCvBinDir)\$(OpenCvWorldName).dll')"
+      Text="OpenCV runtime not found: $(OpenCvBinDir)\$(OpenCvWorldName).dll." />
+  </Target>
+</Project>

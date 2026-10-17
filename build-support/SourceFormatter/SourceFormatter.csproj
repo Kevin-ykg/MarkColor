@@ -1,0 +1,40 @@
+<Project
+  Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RoslynTools>$(MSBuildSDKsPath)/../DotnetTools/dotnet-format</RoslynTools>
+  </PropertyGroup>
+  <!-- 直接使用本机 SDK 内的 Roslyn，不增加需要联网下载的 NuGet 依赖。 -->
+  <ItemGroup>
+    <Reference
+      Include="Microsoft.CodeAnalysis"
+      HintPath="$(RoslynTools)/Microsoft.CodeAnalysis.dll" />
+    <Reference
+      Include="Microsoft.CodeAnalysis.CSharp"
+      HintPath="$(RoslynTools)/Microsoft.CodeAnalysis.CSharp.dll" />
+    <Reference
+      Include="Microsoft.CodeAnalysis.Workspaces"
+      HintPath="$(RoslynTools)/Microsoft.CodeAnalysis.Workspaces.dll" />
+    <Reference
+      Include="Microsoft.CodeAnalysis.CSharp.Workspaces"
+      HintPath="$(RoslynTools)/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" />
+    <Reference
+      Include="System.Composition.AttributedModel"
+      HintPath="$(RoslynTools)/System.Composition.AttributedModel.dll" />
+    <Reference
+      Include="System.Composition.Runtime"
+      HintPath="$(RoslynTools)/System.Composition.Runtime.dll" />
+    <Reference
+      Include="System.Composition.Hosting"
+      HintPath="$(RoslynTools)/System.Composition.Hosting.dll" />
+    <Reference
+      Include="System.Composition.TypedParts"
+      HintPath="$(RoslynTools)/System.Composition.TypedParts.dll" />
+    <Reference
+      Include="System.Composition.Convention"
+      HintPath="$(RoslynTools)/System.Composition.Convention.dll" />
+  </ItemGroup>
+</Project>

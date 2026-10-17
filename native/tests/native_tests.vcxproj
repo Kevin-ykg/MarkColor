@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  DefaultTargets="Build"
+  ToolsVersion="Current"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup
+    Label="ProjectConfigurations">
+    <ProjectConfiguration
+      Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration
+      Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup
+    Label="Globals">
+    <ProjectGuid>{643EE403-5137-42ED-A22A-9945AC83A7C8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup
+    Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset
+      Condition="'$(PlatformToolset)' == '' and '$(VisualStudioVersion)' == '18.0'">v145</PlatformToolset>
+    <PlatformToolset
+      Condition="'$(PlatformToolset)' == ''">v143</PlatformToolset>
+    <UseDebugLibraries
+      Condition="'$(Configuration)' == 'Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries
+      Condition="'$(Configuration)' != 'Debug'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup
+    Label="PropertySheets">
+    <Import
+      Project="..\..\build-support\Native.Common.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>$(MarkColorRoot)build\msbuild\tests\$(Configuration)\</OutDir>
+    <TargetName>native_tests</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile
+      Include="native_tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference
+      Include="..\MarkColorNative.vcxproj">
+      <Project>{D699B057-3B31-4918-BD59-9B977A6BE5B1}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target
+    Name="CopyAlgorithmForTests"
+    AfterTargets="Build">
+    <Copy
+      SourceFiles="$(NativeOutputDir)MarkColorNative.dll;$(NativeOutputDir)MarkColorNative.pdb"
+      DestinationFolder="$(OutDir)"
+      SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <FileWrites
+        Include="$(OutDir)MarkColorNative.dll;$(OutDir)MarkColorNative.pdb" />
+    </ItemGroup>
+  </Target>
+</Project>

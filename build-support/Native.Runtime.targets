@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- WPF 生成/发布共用复制规则：算法 DLL/PDB 与当前 Debug/Release 的 OpenCV DLL。
+       使用显式路径，确保初次评估时尚未生成的 Native 文件也能在构建后复制。 -->
+  <ItemGroup>
+    <Content
+      Include="$(NativeOutputDir)MarkColorNative.dll"
+      Link="MarkColorNative.dll"
+      CopyToOutputDirectory="PreserveNewest"
+      CopyToPublishDirectory="PreserveNewest"
+      Visible="false" />
+    <Content
+      Include="$(NativeOutputDir)MarkColorNative.pdb"
+      Link="MarkColorNative.pdb"
+      CopyToOutputDirectory="PreserveNewest"
+      CopyToPublishDirectory="PreserveNewest"
+      Visible="false" />
+    <Content
+      Include="$(OpenCvBinDir)\$(OpenCvWorldName).dll"
+      Link="$(OpenCvWorldName).dll"
+      CopyToOutputDirectory="PreserveNewest"
+      CopyToPublishDirectory="PreserveNewest"
+      Visible="false" />
+  </ItemGroup>
+  <Target
+    Name="ValidateNativeRuntime"
+    BeforeTargets="CopyFilesToOutputDirectory"
+    Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error
+      Condition="!Exists('$(NativeOutputDir)MarkColorNative.dll') or !Exists('$(NativeOutputDir)MarkColorNative.pdb')"
+      Text="Native DLL/PDB missing. Build MarkColorDemo.sln with Visual Studio MSBuild or run build.ps1." />
+  </Target>
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MarkColorDemo (C# + C++)": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

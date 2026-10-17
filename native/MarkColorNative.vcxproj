@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  DefaultTargets="Build"
+  ToolsVersion="Current"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup
+    Label="ProjectConfigurations">
+    <ProjectConfiguration
+      Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration
+      Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup
+    Label="Globals">
+    <ProjectGuid>{D699B057-3B31-4918-BD59-9B977A6BE5B1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MarkColorNative</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup
+    Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset
+      Condition="'$(PlatformToolset)' == '' and '$(VisualStudioVersion)' == '18.0'">v145</PlatformToolset>
+    <PlatformToolset
+      Condition="'$(PlatformToolset)' == ''">v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries
+      Condition="'$(Configuration)' == 'Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries
+      Condition="'$(Configuration)' == 'Release'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <!-- SDK 路径/版本共用同一来源，WPF 复制和 C++ 测试读取相同配置。
+       在项目树“环境与构建配置”或属性管理器中打开 OpenCV.props 可编辑。 -->
+  <ImportGroup
+    Label="PropertySheets">
+    <Import
+      Project="..\build-support\OpenCV.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>$(NativeOutputDir)</OutDir>
+    <IntDir>$(MarkColorRoot)build\msbuild\obj\$(MSBuildProjectName)\$(Configuration)\</IntDir>
+    <TargetName>MarkColorNative</TargetName>
+    <LinkIncremental
+      Condition="'$(Configuration)' == 'Debug'">true</LinkIncremental>
+    <LinkIncremental
+      Condition="'$(Configuration)' == 'Release'">false</LinkIncremental>
+  </PropertyGroup>
+  <!-- 直接列在本工程中，VS“项目属性”中可以看到本级设置及宏的计算值。 -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(OpenCvIncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MC_EXPORTS;WIN32;_WINDOWS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)compile.pdb</ProgramDataBaseFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OpenCvLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX64</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)MarkColorNative.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Debug：禁用优化、/MDd、链接带 d 后缀的 OpenCV 库。 -->
+  <ItemDefinitionGroup
+    Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opencv_world$(OpenCvVersion)d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Release：优化、/MD、链接无 d 后缀的 OpenCV 库。 -->
+  <ItemDefinitionGroup
+    Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opencv_world$(OpenCvVersion).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile
+      Include="src\mark_color.cpp" />
+    <ClCompile
+      Include="src\mark_detection.cpp" />
+    <ClCompile
+      Include="src\mark_quality.cpp" />
+    <ClCompile
+      Include="src\mark_candidates.cpp" />
+    <ClCompile
+      Include="src\mark_matching.cpp" />
+    <ClCompile
+      Include="src\color_difference.cpp" />
+    <ClInclude
+      Include="include\mark_color.h" />
+    <ClInclude
+      Include="src\mark_color_internal.h" />
+    <None
+      Include="CMakeLists.txt" />
+    <None
+      Include="..\build-support\OpenCV.props" />
+    <None
+      Include="..\build-support\Native.Runtime.targets" />
+    <None
+      Include="..\.clang-format" />
+    <None
+      Include="..\.editorconfig" />
+  </ItemGroup>
+  <Import
+    Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target
+    Name="ShowOpenCvConfiguration"
+    BeforeTargets="PrepareForBuild"
+    Condition="'$(DesignTimeBuild)' != 'true'">
+    <Message
+      Importance="High"
+      Text="OpenCV $(OpenCvVersion) [$(Configuration)|$(Platform)] SDK: $(OpenCvRoot)" />
+    <Message
+      Importance="High"
+      Text="  Include: $(OpenCvIncludeDir); Link: $(OpenCvLibDir)\$(OpenCvWorldName).lib" />
+    <Message
+      Importance="High"
+      Text="  Runtime: $(OpenCvBinDir)\$(OpenCvWorldName).dll" />
+  </Target>
+  <Target
+    Name="CopyOpenCvNativeRuntime"
+    AfterTargets="Build">
+    <Copy
+      SourceFiles="$(OpenCvBinDir)\$(OpenCvWorldName).dll"
+      DestinationFolder="$(OutDir)"
+      SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <FileWrites
+        Include="$(OutDir)$(OpenCvWorldName).dll" />
+    </ItemGroup>
+  </Target>
+</Project>

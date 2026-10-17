@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+  ToolsVersion="4.0"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter
+      Include="Source Files">
+      <UniqueIdentifier>{4328DDCE-BFDC-4778-B7F4-AE6B22EBE981}</UniqueIdentifier>
+    </Filter>
+    <Filter
+      Include="Header Files">
+      <UniqueIdentifier>{3FD469F2-8C20-4443-9FDA-7DC024505171}</UniqueIdentifier>
+    </Filter>
+    <Filter
+      Include="环境与构建配置">
+      <UniqueIdentifier>{07D8D645-D7DB-4EC2-B7A6-C37DAA01AA35}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile
+      Include="src\mark_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude
+      Include="include\mark_color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile
+      Include="src\mark_candidates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile
+      Include="src\mark_quality.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile
+      Include="src\mark_detection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile
+      Include="src\mark_matching.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile
+      Include="src\color_difference.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude
+      Include="src\mark_color_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <None
+      Include="..\build-support\OpenCV.props">
+      <Filter>环境与构建配置</Filter>
+    </None>
+    <None
+      Include="..\build-support\Native.Runtime.targets">
+      <Filter>环境与构建配置</Filter>
+    </None>
+    <None
+      Include="..\.clang-format">
+      <Filter>环境与构建配置</Filter>
+    </None>
+    <None
+      Include="..\.editorconfig">
+      <Filter>环境与构建配置</Filter>
+    </None>
+    <None
+      Include="CMakeLists.txt">
+      <Filter>环境与构建配置</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,97 @@
+<Application
+  x:Class="MarkColorDemo.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary
+          Source="Assets/CmykIcon.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <SolidColorBrush
+        x:Key="Accent"
+        Color="#087F8C" />
+      <Style
+        TargetType="Window">
+        <Setter
+          Property="Icon"
+          Value="pack://application:,,,/MarkColorDemo;component/Assets/CmykMark.ico" />
+        <Setter
+          Property="FontFamily"
+          Value="Microsoft YaHei UI" />
+        <Setter
+          Property="FontSize"
+          Value="13" />
+        <Setter
+          Property="Background"
+          Value="#F3F5F8" />
+      </Style>
+      <Style
+        TargetType="Button">
+        <Setter
+          Property="Padding"
+          Value="14,8" />
+        <Setter
+          Property="Margin"
+          Value="0,0,8,0" />
+        <Setter
+          Property="Background"
+          Value="White" />
+        <Setter
+          Property="BorderBrush"
+          Value="#CBD5E1" />
+        <Setter
+          Property="Foreground"
+          Value="#193047" />
+        <Setter
+          Property="Cursor"
+          Value="Hand" />
+      </Style>
+      <Style
+        TargetType="TextBox">
+        <Setter
+          Property="Padding"
+          Value="7,5" />
+        <Setter
+          Property="BorderBrush"
+          Value="#CBD5E1" />
+        <Setter
+          Property="VerticalContentAlignment"
+          Value="Center" />
+      </Style>
+      <Style
+        TargetType="DataGrid">
+        <Setter
+          Property="AutoGenerateColumns"
+          Value="False" />
+        <Setter
+          Property="CanUserAddRows"
+          Value="False" />
+        <Setter
+          Property="CanUserDeleteRows"
+          Value="False" />
+        <Setter
+          Property="RowHeight"
+          Value="33" />
+        <Setter
+          Property="ColumnHeaderHeight"
+          Value="34" />
+        <Setter
+          Property="HeadersVisibility"
+          Value="Column" />
+        <Setter
+          Property="GridLinesVisibility"
+          Value="Horizontal" />
+        <Setter
+          Property="HorizontalGridLinesBrush"
+          Value="#EDF0F4" />
+        <Setter
+          Property="BorderThickness"
+          Value="0" />
+        <Setter
+          Property="AlternatingRowBackground"
+          Value="#F7FAFC" />
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

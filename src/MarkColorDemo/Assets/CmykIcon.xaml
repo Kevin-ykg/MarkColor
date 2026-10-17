@@ -1,0 +1,69 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 四个印刷色 mark 位于放大镜内；界面和 ICO 生成共用此矢量源。 -->
+  <DrawingImage
+    x:Key="CmykAppMark">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <GeometryDrawing
+          Brush="#152C40">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry
+              Rect="0,0,64,64"
+              RadiusX="13"
+              RadiusY="13" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing
+          Brush="#ECF5FA"
+          Geometry="M 42,46 L 46,42 L 58,54 Q 60,56 58,58 Q 56,60 54,58 Z" />
+        <GeometryDrawing
+          Brush="#ECF5FA">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry
+              Center="29,29"
+              RadiusX="23"
+              RadiusY="23" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing
+          Brush="#00B7D2">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry
+              Center="21,21"
+              RadiusX="7"
+              RadiusY="7" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing
+          Brush="#E8308A">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry
+              Center="37,21"
+              RadiusX="7"
+              RadiusY="7" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing
+          Brush="#F3D326">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry
+              Center="21,37"
+              RadiusX="7"
+              RadiusY="7" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing
+          Brush="#1E293B">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry
+              Center="37,37"
+              RadiusX="7"
+              RadiusY="7" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>

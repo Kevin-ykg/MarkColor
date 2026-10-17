@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.0.0
+MinimumVisualStudioVersion = 17.0.31903.59
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkColorDemo", "src\MarkColorDemo\MarkColorDemo.csproj", "{BBE54723-3A19-402F-A057-1EB330CA06C3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MarkColorNative", "native\MarkColorNative.vcxproj", "{D699B057-3B31-4918-BD59-9B977A6BE5B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verification", "tests\Verification\Verification.csproj", "{662F72B8-A3E1-4048-823E-CE3E74590486}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "native_tests", "native\tests\native_tests.vcxproj", "{643EE403-5137-42ED-A22A-9945AC83A7C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build configuration", "Build configuration", "{EB74316D-5441-487C-AEC1-63B68A376114}"
+	ProjectSection(SolutionItems) = preProject
+		.clang-format = .clang-format
+		.editorconfig = .editorconfig
+		.vsconfig = .vsconfig
+		build.ps1 = build.ps1
+		build-support\check-symbols.ps1 = build-support\check-symbols.ps1
+		build-support\format-scripts.ps1 = build-support\format-scripts.ps1
+		build-support\format-xml.ps1 = build-support\format-xml.ps1
+		format.ps1 = format.ps1
+		build-support\generate-icon.ps1 = build-support\generate-icon.ps1
+		global.json = global.json
+		build-support\Native.Common.props = build-support\Native.Common.props
+		build-support\Native.Runtime.targets = build-support\Native.Runtime.targets
+		build-support\OpenCV.props = build-support\OpenCV.props
+		prepare-handoff.ps1 = prepare-handoff.ps1
+		build-support\SourceFormatter\Program.cs = build-support\SourceFormatter\Program.cs
+		quick-run.cmd = quick-run.cmd
+		setup-dev.cmd = setup-dev.cmd
+		setup.ps1 = setup.ps1
+		build-support\SourceFormatter\SourceFormatter.csproj = build-support\SourceFormatter\SourceFormatter.csproj
+		build-support\SymbolProbe.cs = build-support\SymbolProbe.cs
+		verify.ps1 = verify.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FF7ECB8-570F-415A-A4BA-AC8A20FEC1C6}"
+	ProjectSection(SolutionItems) = preProject
+		docs\ΔE00权重与光照一致性说明.md = docs\ΔE00权重与光照一致性说明.md
+		docs\代码规范.md = docs\代码规范.md
+		docs\全项目代码整理说明.md = docs\全项目代码整理说明.md
+		docs\清除标准与会话复位说明.md = docs\清除标准与会话复位说明.md
+		docs\升级功能与使用说明.md = docs\升级功能与使用说明.md
+		docs\图标缩放与格式维护说明.md = docs\图标缩放与格式维护说明.md
+		docs\建标恢复与性能优化说明.md = docs\建标恢复与性能优化说明.md
+		docs\性能优化与报告说明.md = docs\性能优化与报告说明.md
+		docs\相机与圆点尺寸适配说明.md = docs\相机与圆点尺寸适配说明.md
+		docs\色差参数与界面简化说明.md = docs\色差参数与界面简化说明.md
+		docs\项目全局导航与开发指南.md = docs\项目全局导航与开发指南.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBE54723-3A19-402F-A057-1EB330CA06C3}.Debug|x64.ActiveCfg = Debug|x64
+		{BBE54723-3A19-402F-A057-1EB330CA06C3}.Debug|x64.Build.0 = Debug|x64
+		{BBE54723-3A19-402F-A057-1EB330CA06C3}.Release|x64.ActiveCfg = Release|x64
+		{BBE54723-3A19-402F-A057-1EB330CA06C3}.Release|x64.Build.0 = Release|x64
+		{D699B057-3B31-4918-BD59-9B977A6BE5B1}.Debug|x64.ActiveCfg = Debug|x64
+		{D699B057-3B31-4918-BD59-9B977A6BE5B1}.Debug|x64.Build.0 = Debug|x64
+		{D699B057-3B31-4918-BD59-9B977A6BE5B1}.Release|x64.ActiveCfg = Release|x64
+		{D699B057-3B31-4918-BD59-9B977A6BE5B1}.Release|x64.Build.0 = Release|x64
+		{662F72B8-A3E1-4048-823E-CE3E74590486}.Debug|x64.ActiveCfg = Debug|x64
+		{662F72B8-A3E1-4048-823E-CE3E74590486}.Debug|x64.Build.0 = Debug|x64
+		{662F72B8-A3E1-4048-823E-CE3E74590486}.Release|x64.ActiveCfg = Release|x64
+		{662F72B8-A3E1-4048-823E-CE3E74590486}.Release|x64.Build.0 = Release|x64
+		{643EE403-5137-42ED-A22A-9945AC83A7C8}.Debug|x64.ActiveCfg = Debug|x64
+		{643EE403-5137-42ED-A22A-9945AC83A7C8}.Debug|x64.Build.0 = Debug|x64
+		{643EE403-5137-42ED-A22A-9945AC83A7C8}.Release|x64.ActiveCfg = Release|x64
+		{643EE403-5137-42ED-A22A-9945AC83A7C8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{662F72B8-A3E1-4048-823E-CE3E74590486} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{643EE403-5137-42ED-A22A-9945AC83A7C8} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+EndGlobal

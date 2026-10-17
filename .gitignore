@@ -1,0 +1,14 @@
+build/
+publish/
+**/bin/
+**/obj/
+.vs/
+*.user
+
+dependencies/
+dist/
+
+# Verification creates local reports, images and historical source archives.
+# Keep only the screenshot embedded in README; tests regenerate other evidence.
+verification/*
+!verification/demo-preview.png
