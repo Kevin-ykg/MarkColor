@@ -19,6 +19,7 @@ public sealed class ColorDifferenceSettings
 
     public NativeColorDifferenceSettings ToNative() => new() { KL = KL, KC = KC, KH = KH };
 
+    // 限制参数因子范围，不改变产品允许的 ΔE00 阈值；默认 1/1/1 与旧标准兼容。
     public void Validate()
     {
         // 正值避免除零；两端采用同一演示调参范围，不把因子解释为百分比。

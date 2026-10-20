@@ -12,6 +12,7 @@ $changed = 0
 foreach ($file in $files) {
     $text = [IO.File]::ReadAllText($file.FullName)
     $document = [Xml.XmlDocument]::new()
+    # 本项目 XML 无需保留混合文本空白；若以后加入依赖空格的文本节点，先扩展验证再使用此格式器。
     $document.PreserveWhitespace = $false
     $document.LoadXml($text)
     $settings = [Xml.XmlWriterSettings]::new()

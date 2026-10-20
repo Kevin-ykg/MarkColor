@@ -2,6 +2,7 @@
   x:Class="MarkColorDemo.App"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 全局共享样式；修改隐式样式会影响主窗口与设置窗口，需同时检查。 -->
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>

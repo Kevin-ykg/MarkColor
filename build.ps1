@@ -1,4 +1,14 @@
-﻿# 构建入口：VS MSBuild 编译统一解决方案 → Native 回归 → 可选发布 WPF。
+﻿<#
+.SYNOPSIS
+构建统一解决方案并运行原生回归，可选发布。
+.PARAMETER OpenCvDir
+OpenCV build 根目录或 x64/vc*/lib；只覆盖本次构建，不改写属性表。
+.PARAMETER Configuration
+Debug 用于混合调试，Release 用于速度评估与交付。
+.PARAMETER NoPublish
+保留 F5 输出但跳过 publish。任一工具失败时脚本抛出异常。
+#>
+# 构建入口：VS MSBuild 编译统一解决方案 → Native 回归 → 可选发布 WPF。
 # OpenCvDir 可覆盖 SDK 路径；配置保持 x64，DLL/PDB 的复制规则由工程 targets 负责。
 param(
     [string]$OpenCvDir = $env:OpenCV_DIR,

@@ -57,6 +57,7 @@ public static class MarkColorSymbolProbe
         }
     }
 
+    /// <summary>通过 DbgHelp 验证 DLL/PDB 能解析 mc_analyze 源码行；不代替 VS 中的实际断点调试。</summary>
     public static string Verify(string dllPath)
     {
         IntPtr process = Process.GetCurrentProcess().Handle;

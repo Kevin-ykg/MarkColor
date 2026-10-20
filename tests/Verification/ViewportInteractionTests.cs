@@ -1,3 +1,4 @@
+// 验证坐标变换、鼠标锚点缩放及换图复位；显示交互必须与检测像素独立。
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;

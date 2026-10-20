@@ -25,12 +25,14 @@ public sealed partial class ImageViewport : FrameworkElement
     private Vector dragPan;
     private int selectedId = -1;
 
+    /// <summary>点击对应业务编号；配准不确定时不得据此推断真实墨路。</summary>
     public event Action<int>? MarkClicked;
 
     public event Action? ViewChanged;
 
     public event Action? ViewReset;
 
+    /// <summary>输出相对整幅原图宽高的 ROI，取值 0..1；不是控件像素或局部裁剪坐标。</summary>
     public event Action<Rect>? RoiSelected;
 
     public bool RoiSelectionEnabled
@@ -86,6 +88,7 @@ public sealed partial class ImageViewport : FrameworkElement
         return null;
     }
 
+    /// <summary>按标准编号安排下一次布局时居中；仅调整显示，不能改变算法配准和取色范围。</summary>
     public void FocusMark(int id)
     {
         selectedId = id;
@@ -132,6 +135,7 @@ public sealed partial class ImageViewport : FrameworkElement
         InvalidateVisual(); // 不再次触发事件，避免两侧互相递归。
     }
 
+    /// <summary>设置并通知归一化 ROI；这里只画选框，检测参数是否提交由设置对话框决定。</summary>
     public void SetRoi(Rect normalized)
     {
         if (analysis == null || normalized.X < 0 || normalized.Y < 0 || normalized.Right > 1 || normalized.Bottom > 1 || normalized.Width <= 0 || normalized.Height <= 0)
@@ -254,6 +258,7 @@ public sealed partial class ImageViewport : FrameworkElement
         Cursor = Cursors.Arrow;
     }
 
+    /// <summary>恢复适应窗口倍率和平移；保留同一图像上的 ROI，不等同于清除标准。</summary>
     public void ResetView()
     {
         pendingFocus = focusOnResize = false;
@@ -268,6 +273,7 @@ public sealed partial class ImageViewport : FrameworkElement
         InvalidateVisual();
     }
 
+    /// <summary>绑定图像与结论；同一 Analysis 保留交互状态，更换图像则清理选择、ROI 和鼠标捕获。</summary>
     public void Set(
         Analysis? a,
         StandardProfile? profile,

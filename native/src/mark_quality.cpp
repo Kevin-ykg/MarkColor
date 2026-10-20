@@ -119,6 +119,7 @@ namespace mark_color
         return true;
     }
 
+    // 生成测量资格所需的原始证据；颜色 NG 与质量阈值由托管业务层决定。
     McQuality measureQuality(const cv::Mat& image, const Contour& contour, const McMark& mark, double innerRatio,
                              bool refined)
     {
@@ -168,6 +169,7 @@ namespace mark_color
             squaredResidual += residual * residual;
         }
         quality.fitResidual = std::sqrt(squaredResidual / std::max<size_t>(1, contour.size()));
+        // 支持比例、对比信噪比和几何残差相乘形成启发式指标，不表示检测正确的统计概率。
         quality.contourConfidence =
             quality.edgeSupport *
             std::clamp(localEvidence.contrast / std::max(3.0, 2 * localEvidence.noise), 0.0, 1.0) *

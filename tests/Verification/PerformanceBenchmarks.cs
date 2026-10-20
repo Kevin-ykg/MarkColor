@@ -1,3 +1,4 @@
+// 性能工具的结果依赖配置、硬件、预热和输入；只比较相同条件与相同计时阶段。
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;

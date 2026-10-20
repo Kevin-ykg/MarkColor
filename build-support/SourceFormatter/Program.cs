@@ -18,6 +18,7 @@ var options = workspace.Options
     .WithChangedOption(FormattingOptions.IndentationSize, LanguageNames.CSharp, 4)
     .WithChangedOption(CSharpFormattingOptions.WrappingPreserveSingleLine, false)
     .WithChangedOption(CSharpFormattingOptions.WrappingKeepStatementsOnSingleLine, false);
+// 仅枚举自有 C# 目录并排除 bin/obj；不要把依赖、发布文件或临时验证脚本纳入改写。
 var files = new[]
 {
     "src",
@@ -33,6 +34,7 @@ foreach (string file in files)
         throw new InvalidDataException("C# syntax error: " + file);
     }
 
+    // 先检查输入语法，再调整结构和空白，最后对照非大括号 token；新规则也必须保持这道保护。
     var source = tree.GetRoot();
     var expanded = new ControlBlockRewriter().Visit(source)!;
     expanded = new LongListRewriter().Visit(expanded)!;

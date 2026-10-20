@@ -31,6 +31,7 @@ public partial class MainWindow : Window
         ".tiff"
     };
 
+    /// <summary>从程序目录向上查找源码根目录；便携包没有源码入口时退回程序目录，不依赖固定盘符。</summary>
     public static string DemoRoot
     {
         get
@@ -125,6 +126,7 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>在 Execute 的操作保护内加载单图；后台全部完成后再提交新图和结论，失败保留旧快照。</summary>
     private async Task LoadCurrent(string path)
     {
         lastAttempt = path;
@@ -301,6 +303,7 @@ public partial class MainWindow : Window
         });
     }
 
+    /// <summary>复位整个当前会话，包括 ROI、预览、选择和参数；已保存的标准 JSON 不从磁盘删除。</summary>
     private void ClearStandard_Click(object sender, RoutedEventArgs e)
     {
         if (busy || !CanReplaceStandard())
@@ -335,6 +338,7 @@ public partial class MainWindow : Window
         StatusLine.Text = "已清除标准及图像，ROI 恢复全图，所有检测参数恢复默认。可重新建标；磁盘上已保存的标准 JSON 保留。";
     }
 
+    /// <summary>按同目录图像文件的排序循环切换；复用当前标准和参数，不隐式建立新标准。</summary>
     private async Task Navigate(int direction)
     {
         if (busy || current == null)

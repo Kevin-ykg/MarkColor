@@ -47,6 +47,7 @@ public partial class SettingsWindow : Window
         }
     }
 
+    /// <summary>复制可编辑参数和标准点；预览来源只读借用，点击应用前不改变主窗口的有效配置。</summary>
     public SettingsWindow(DetectionSettings settings, StandardProfile? standard, Analysis? preview = null)
     {
         InitializeComponent();
@@ -126,6 +127,7 @@ public partial class SettingsWindow : Window
 
     private void SetInput(string name, double value) => inputs[name].Text = value.ToString("G8", CultureInfo.InvariantCulture);
 
+    /// <summary>根据模型属性路径生成数值输入；输入键必须对应真实 double 属性，与 ReadDraft 共用。</summary>
     private void Add(string property, string title, string hint)
     {
         int row = parameterTarget.RowDefinitions.Count;
@@ -243,6 +245,7 @@ public partial class SettingsWindow : Window
         ErrorText.Text = "半径已扩展为 8–500 px，圆填充率至少为 0.80，尚未应用。请先预览；ROI 和颜色阈值保持当前值。换相机后请重新建立颜色标准。";
     }
 
+    /// <summary>撤销草稿中的人工目标偏移，恢复建标时保存的均值；仍需点击应用才提交。</summary>
     private void RestoreLab_Click(object sender, RoutedEventArgs e)
     {
         foreach (var mark in Marks)
@@ -261,6 +264,7 @@ public partial class SettingsWindow : Window
 
     private async void Preview_Click(object sender, RoutedEventArgs e) => await PreviewDraftAsync();
 
+    /// <summary>使用当前草稿重新分析预览来源，展示候选与质量；不替换标准，也不产生正式检测结论。</summary>
     public async Task PreviewDraftAsync()
     {
         try
@@ -288,6 +292,7 @@ public partial class SettingsWindow : Window
         }
     }
 
+    /// <summary>解释提取数量、像素尺度和测量资格；没有标准时不能自动知道实际应有几个圆点。</summary>
     private void UpdatePreviewInfo(Analysis result, DetectionSettings draft)
     {
         var failures = Enumerable.Range(0, result.Marks.Count)

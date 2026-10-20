@@ -12,6 +12,7 @@ public sealed class StandardProfile
 
     public string Id { get; set; } = Guid.NewGuid().ToString("N");
 
+    // Revision 是同一标准的修改次数；SchemaVersion 是文件数据结构版本，两者不可混用。
     public int Revision { get; set; } = 1;
 
     public List<StandardSample> Samples { get; set; } = [];
@@ -23,6 +24,7 @@ public sealed class StandardProfile
 
     public string Name { get; set; } = "标准 OK";
 
+    // 内存中为绝对路径；保存时转为相对 JSON 的路径，首张图仅提供几何与预览基准。
     public string SourcePath { get; set; } = "";
 
     public string SourceSha256 { get; set; } = "";
@@ -43,6 +45,7 @@ public sealed class StandardProfile
 
     public List<StandardMark> Marks { get; set; } = [];
 
+    /// <summary>从测量快照生成单图标准草稿；此入口不替代 StandardBuilder 的采样质量检查。</summary>
     public static StandardProfile From(Analysis analysis, DetectionSettings settings) => From(analysis, settings, null);
 
     // 建标流水线已在分析前后核对文件哈希，无须第三次读取整幅 BMP。
@@ -154,6 +157,7 @@ public sealed class StandardProfile
         return Convert.ToHexString(SHA256.HashData(stream));
     }
 
+    // IncludeFields 用于保存 Mark 的互操作字段；去掉它会造成目标几何与颜色数据丢失。
     public static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -296,6 +300,7 @@ public sealed class StandardProfile
         for (int index = 0; index < Marks.Count; index++)
         {
             var target = Marks[index];
+            // 采样偏差针对原始均值统计，不针对人工微调后的目标；避免微调反过来改变重复性含义。
             var rawMean = target.MeasuredLab ?? LabValue.From(target.Value);
             var samples = Samples.Where(sample => sample.Values.Count > index).Select(sample => sample.Values[index]);
             target.MaximumSampleDeltaE = samples.Select(value => Native.DeltaE00(value, rawMean, Settings.ColorDifference)).DefaultIfEmpty(0).Max();

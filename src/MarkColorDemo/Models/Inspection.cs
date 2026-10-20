@@ -54,6 +54,7 @@ public sealed class Inspection
 
     public bool Pass => Decision.Pass;
 
+    /// <summary>把待测数组下标映射为界面标签；配准不明确时只显示候选编号，避免暗示已确认墨路。</summary>
     public string ObservedLabel(int observedIndex)
     {
         if (!HasReliableAlignment)
@@ -65,6 +66,7 @@ public sealed class Inspection
         return row == null ? $"多余 P{observedIndex + 1}" : $"#{row.Id} {row.Status}";
     }
 
+    /// <summary>只有配准可靠且对应项明确缺失时才画缺失圈；referenceIndex 是标准数组下标。</summary>
     public bool IsConfirmedMissing(int referenceIndex) => HasReliableAlignment && Comparisons[referenceIndex].Status == MissingStatus && Comparisons[referenceIndex].ObservedIndex < 0;
 
     public string Summary(int referenceCount)
@@ -150,6 +152,7 @@ public sealed class Inspection
         return $"{refinement} / 置信 {quality.ContourConfidence:F2} / 边宽 {quality.EdgeWidth:F1}px";
     }
 
+    /// <summary>校验标准、完成几何比较，再统一生成测量资格与颜色结论；不读图、不重取色。</summary>
     public static Inspection Run(StandardProfile profile, Analysis image)
     {
         profile.Validate();
@@ -198,6 +201,7 @@ public sealed class Inspection
         return result;
     }
 
+    /// <summary>未建标时生成只读量化行；这些行不包含相对标准的合格判定。</summary>
     public static List<ResultRow> Quantify(Analysis analysis) => analysis.Marks.Select((mark, index) => new ResultRow
     {
         Id = index + 1,

@@ -134,6 +134,7 @@
                 Width="10" />
               <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <!-- ROI 从原始图像视图框选，输出归一化坐标；预览不提交正式检测参数。 -->
             <local:ImageViewport
               x:Name="BeforeView" />
             <local:ImageViewport
@@ -172,6 +173,7 @@
               Click="ApplyThreshold_Click"
               Margin="10,0,0,0" />
           </StackPanel>
+          <!-- 编辑的是标准草稿；后台重建与最终提交由主窗口设置流程负责。 -->
           <DataGrid
             x:Name="StandardsGrid">
             <DataGrid.Columns>

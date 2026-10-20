@@ -15,6 +15,7 @@ public static class DetectionPipeline
         var analysis = Native.Analyze(path, settings, preparePreview: preparePreview);
         double analyzeMs = timer.Elapsed.TotalMilliseconds - analysis.PreviewMilliseconds;
         timer.Restart();
+        // 未建标只返回量化值；有标准才运行统一判定，报告生成不在这段检测计时内。
         var inspection = standard == null ? null : Inspection.Run(standard, analysis);
         double compareMs = timer.Elapsed.TotalMilliseconds;
         return new Result(analysis, inspection, analyzeMs, compareMs, analysis.PreviewMilliseconds);

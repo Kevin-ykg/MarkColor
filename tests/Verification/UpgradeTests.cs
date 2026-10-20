@@ -1,3 +1,4 @@
+// 多图均值、质量资格和批量失败/取消的集成回归；合成质量证据仅验证业务规则。
 using MarkColorDemo;
 using System.IO;
 using System.Text.Json;

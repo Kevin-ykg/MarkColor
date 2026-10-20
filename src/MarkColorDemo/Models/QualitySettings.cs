@@ -28,6 +28,7 @@ public sealed class QualitySettings
 
     public void Validate()
     {
+        // 本模型公开属性当前均为 double；新增非数值属性时必须同步调整这里的反射校验。
         foreach (var property in GetType().GetProperties())
         {
             double value = (double)property.GetValue(this)!;
@@ -76,6 +77,7 @@ public sealed class QualitySettings
             return new(DetectionVerdict.Unmeasurable, "质量证据包含无效数值。");
         }
 
+        // 收集所有不满足条件的原因；低对比度不能靠扩大色差阈值变成有效测量。
         List<string> reasons = [];
         if (quality.Refined == 0)
         {

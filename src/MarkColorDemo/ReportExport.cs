@@ -7,6 +7,7 @@ public sealed class ReportExport : IDisposable
 {
     public const string Filter = "可视化检测报告（浏览器打开）|*.html|详细测量数据（CSV）|*.csv";
 
+    /// <summary>CSV 只使用数值，其他导出路径需要显示位图；批量在分析前据此决定是否复制预览。</summary>
     public static bool NeedsPreview(string path) => !Path.GetExtension(path).Equals(".csv", StringComparison.OrdinalIgnoreCase);
 
     private readonly VisualReportWriter? visual;
@@ -89,6 +90,7 @@ public sealed class ReportExport : IDisposable
         }
     }
 
+    /// <summary>关闭导出并提交未失败的临时文件；写入失败时保留原目标，临时文件可能留下用于排查。</summary>
     public void Dispose()
     {
         if (disposed)

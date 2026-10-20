@@ -1,3 +1,4 @@
+// 专用实拍数据集回归：按既定版式检查点数及质量，不应把这些期望推广为任意用户图库的真值。
 using MarkColorDemo;
 using System.Diagnostics;
 using System.IO;

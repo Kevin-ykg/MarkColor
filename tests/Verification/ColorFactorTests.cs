@@ -1,3 +1,4 @@
+// 同时检查 Native 色差因子、JSON 往返和设置应用；因子变化应复用图像测量而重新比较。
 using System.IO;
 using System.Reflection;
 using System.Text.Json;

@@ -1,3 +1,4 @@
+// 通过真实窗口操作回归旧 ROI 残留：检查清除后的状态、磁盘 JSON 保留及再次建标。
 using System.IO;
 using System.Reflection;
 using System.Text.Json;

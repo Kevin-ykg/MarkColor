@@ -8,6 +8,7 @@ namespace MarkColorDemo;
 public partial class MainWindow
 {
     private string measurementTiming = "";
+    // 耗时与产生它的图像对象绑定；切换图片或重算结果时不能继续展示另一张图的计时。
     private Analysis? timingImage;
 
     private void OpenActionMenu_Click(object sender, RoutedEventArgs e)

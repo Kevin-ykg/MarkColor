@@ -14,6 +14,7 @@ public sealed class StandardMark
 
     public string InkChannel { get; set; } = "待确认";
 
+    // 几何来自首张基准图；L/A/B 是检测目标，可能已人工微调，不能视为原始取色数据。
     public Mark Value
     {
         get; set;

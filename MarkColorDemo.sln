@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build configuration", "Buil
 		verify.ps1 = verify.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FF7ECB8-570F-415A-A4BA-AC8A20FEC1C6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "文档", "文档", "{0FF7ECB8-570F-415A-A4BA-AC8A20FEC1C6}"
 	ProjectSection(SolutionItems) = preProject
 		docs\ΔE00权重与光照一致性说明.md = docs\ΔE00权重与光照一致性说明.md
 		docs\代码规范.md = docs\代码规范.md
@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FF7ECB8-5
 		docs\相机与圆点尺寸适配说明.md = docs\相机与圆点尺寸适配说明.md
 		docs\色差参数与界面简化说明.md = docs\色差参数与界面简化说明.md
 		docs\项目全局导航与开发指南.md = docs\项目全局导航与开发指南.md
+		docs\维护与交接检查表.md = docs\维护与交接检查表.md
+		docs\代码维护验证记录-20261020.md = docs\代码维护验证记录-20261020.md
 	EndProjectSection
 EndProject
 Global

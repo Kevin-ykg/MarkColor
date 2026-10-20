@@ -1,3 +1,4 @@
+// 验证首次建标失败后直接使用失败图调整 ROI；取消恢复必须保留原参数与标准。
 using MarkColorDemo;
 using System.IO;
 using System.Windows;

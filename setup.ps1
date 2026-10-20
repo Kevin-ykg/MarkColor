@@ -1,4 +1,14 @@
-﻿# 环境准备：Check 只检查；Development 准备 SDK/开发工具并构建；Run 准备运行环境。
+﻿<#
+.SYNOPSIS
+检查或准备开发、运行环境。
+.PARAMETER Mode
+Check 只报告环境；Development 可能下载和安装工具并构建；Run 准备运行库。
+.PARAMETER OpenCvSource
+可选离线 OpenCV build 目录，需与工程版本及 x64 配置匹配。
+.PARAMETER NoLaunch
+Run 模式准备完成后不启动界面。
+#>
+# 环境准备：Check 只检查；Development 准备 SDK/开发工具并构建；Run 准备运行环境。
 # 下载文件在执行前校验固定摘要或发布者签名；默认目录位于项目内，避免依赖个人路径。
 param(
     [ValidateSet('Check','Run','Development')][string]$Mode = 'Check',

@@ -3,6 +3,7 @@
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- WPF 生成/发布共用复制规则：算法 DLL/PDB 与当前 Debug/Release 的 OpenCV DLL。
        使用显式路径，确保初次评估时尚未生成的 Native 文件也能在构建后复制。 -->
+  <!-- 复制列表以配置对应的 NativeOutputDir 为源；项目引用负责先构建，复制动作本身不编译 C++。 -->
   <ItemGroup>
     <Content
       Include="$(NativeOutputDir)MarkColorNative.dll"

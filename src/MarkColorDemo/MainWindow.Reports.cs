@@ -7,6 +7,7 @@ namespace MarkColorDemo;
 // 单图导出、批量进度与取消；数值检测和文件编码交给后台流水线。
 public partial class MainWindow
 {
+    /// <summary>导出现有检测快照，不为导出再次检测；HTML 和 CSV 共享同一份 Inspection 结论。</summary>
     private async void Export_Click(object sender, RoutedEventArgs e) => await Execute(async () =>
     {
         if (current == null)

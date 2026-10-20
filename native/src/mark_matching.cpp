@@ -154,6 +154,7 @@ namespace mark_color
         AlignmentFit assignMarks(const SimilarityTransform& transform, const McMark* reference, int referenceCount,
                                  const McMark* observed, int observedCount, double tolerance)
         {
+            // 每个标准点都有独立缺失占位，因此待测点为零或少于标准点时仍能完成一对一分配。
             const int columnCount = observedCount + referenceCount;
             std::vector<std::vector<double>> costs(referenceCount,
                                                    std::vector<double>(columnCount, kMissingAssignmentCost));
@@ -407,6 +408,7 @@ namespace mark_color
             require(isValidMark(observed[index]), "Invalid observed mark.");
         }
 
+        // 仅补偿同视野的等比例分辨率变化；更换视野或镜头后不应仅凭宽高比例沿用颜色标准。
         const double resolutionScale = static_cast<double>(observedWidth) / referenceWidth;
         require(std::abs(resolutionScale - static_cast<double>(observedHeight) / referenceHeight) <
                     .02 * resolutionScale,

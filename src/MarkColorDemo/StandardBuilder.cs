@@ -41,6 +41,7 @@ public static class StandardBuilder
         }
     }
 
+    /// <summary>同一膜片逐张独立采样：质量检查与几何对应全部通过后才汇总；取消在每张分析之前检查。</summary>
     public static Result Build(
         IReadOnlyList<string> paths,
         DetectionSettings settings,
@@ -116,6 +117,7 @@ public static class StandardBuilder
                     "请核对所有采样是否为同一膜片、ROI 是否覆盖各次拍摄的全部圆点，以及是否存在漏点、多余点或超出配准范围的位移。");
             }
 
+            // 每张图先重排到首张标准的顺序，再做逐点统计；不可直接按检测下标跨图平均。
             var values = new Mark[profile.Marks.Count];
             for (int i = 0; i < values.Length; ++i)
             {
@@ -156,6 +158,7 @@ public static class StandardBuilder
             mean.Green = aligned.Average(a => a[i].Green);
             mean.Blue = aligned.Average(a => a[i].Blue);
             target.Value = mean;
+            // 保留未经人工修改的均值；多次平均减少随机波动，不会自动校正光源或相机系统偏差。
             target.MeasuredLab = LabValue.From(mean);
             target.CaptureCount = aligned.Count;
             target.MaximumSampleDeltaE = aligned.Max(a => Native.DeltaE00(LabValue.From(a[i]), LabValue.From(mean), settings.ColorDifference));

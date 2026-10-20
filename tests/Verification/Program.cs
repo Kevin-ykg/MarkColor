@@ -70,6 +70,7 @@ internal static class Program
                 return 0;
             }
 
+            // 集成验证会覆盖 verification 中的同名报告；需保留历史证据时先复制到独立日期目录。
             string report = Path.Combine(MainWindow.DemoRoot, "verification");
             Directory.CreateDirectory(report);
             var settings = new DetectionSettings();
@@ -85,6 +86,7 @@ internal static class Program
                 timer.Stop();
                 timings.Add(timer.Elapsed.TotalMilliseconds);
                 analyses[path] = a;
+                // 该点数约定只适用于原始膜片图库命名；新相机图库应走 --camera-scale 专用入口。
                 int expected = Path.GetFileName(path).Contains('左') || Path.GetFileName(path).Contains('右') ? 1 : 5;
                 counts.Add(new
                 {

@@ -35,6 +35,7 @@ namespace mark_color
                         cv::Mat plane, edges;
                         cv::extractChannel(reduced, plane, channel);
                         cv::GaussianBlur(plane, plane, {3, 3}, .7);
+                        // 这里的固定阈值用于生成候选，不是最终的颜色容差；候选还需在原分辨率确认。
                         cv::Canny(plane, edges, 10, 25);
                         std::vector<Contour> candidates;
                         cv::findContours(edges, candidates, cv::RETR_LIST, cv::CHAIN_APPROX_SIMPLE);

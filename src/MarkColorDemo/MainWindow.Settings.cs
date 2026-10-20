@@ -28,6 +28,7 @@ public partial class MainWindow
         await Execute(async () =>
         {
             draft.Validate();
+            // 是否需要重提取由模型定义；新增提取参数必须同时加入 SameExtraction，避免错误复用旧 Lab。
             bool extractionChanged = !settings.SameExtraction(draft);
             var newSettings = draft.Copy();
             if (!settings.ColorDifference.ToNative().Equals(newSettings.ColorDifference.ToNative()))

@@ -139,6 +139,7 @@ public sealed class DetectionSettings
         }
     }
 
-    // 仅比较实际影响提取/取色的 ABI 参数；质量、匹配、色差变化复用已有测量快照。
+    // 提取/取色 ABI 参数定义缓存失效边界；质量、匹配、色差变化复用测量快照。
+    // 新增参数时同步核对 ToNative 的映射，并运行设置回归。
     public bool SameExtraction(DetectionSettings other) => ToNative().Equals(other.ToNative());
 }

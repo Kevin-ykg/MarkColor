@@ -3,16 +3,22 @@ namespace MarkColorDemo;
 /// <summary>业务状态只有一个来源；界面、CSV、HTML 不再各自推断 OK/NG。</summary>
 public enum DetectionVerdict
 {
+    /// <summary>尚未设置标准，仅有量化结果，不代表通过。</summary>
     Quantified,
     Pass,
+    /// <summary>对应关系已确定，颜色数值超出启用的阈值；仍需测量资格有效。</summary>
     ColorNg,
     Missing,
     Extra,
+    /// <summary>几何对应不唯一，暂不据候选关系判定缺点或色差。</summary>
     AlignmentUncertain,
+    /// <summary>当前图像或证据不足以可靠测量，与产品颜色不合格分开。</summary>
     Unmeasurable,
+    /// <summary>文件、调用或处理失败；不是颜色测量结果。</summary>
     Error
 }
 
+/// <summary>机器可判断的结论与面向操作员的原因；业务分支应比较 Verdict，避免依赖中文显示字符串。</summary>
 public sealed record MeasurementDecision(DetectionVerdict Verdict, string Reason)
 {
     public bool Pass => Verdict == DetectionVerdict.Pass;
@@ -39,6 +45,7 @@ public sealed record MeasurementDecision(DetectionVerdict Verdict, string Reason
         _ => "仅量化"
     };
 
+    /// <summary>只解释几何状态与颜色阈值；Inspection 随后检查测量资格，必要时覆盖本结论。</summary>
     public static MeasurementDecision Color(StandardMark standard, Comparison comparison)
     {
         if (comparison.Status == 2)

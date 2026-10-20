@@ -16,6 +16,7 @@ public static class ImagePreview
     }
 
     // 无 Native 预览时的按需解码后备路径；缓存仅属于本次 Analysis，不按文件路径全局复用。
+    /// <summary>缺少预览时从文件补充冻结位图；不重新检测，也不会更新 Analysis 中已经计算的数值。</summary>
     public static void Prepare(Analysis analysis)
     {
         if (analysis.Preview != null || !File.Exists(analysis.Path))

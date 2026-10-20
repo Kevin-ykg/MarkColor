@@ -17,6 +17,7 @@ namespace mark_color
     // 整数轮廓；候选生成时相对传入 ROI，analyzeImage 统一还原整图坐标后才精修/测色。
     using Contour = std::vector<cv::Point>;
 
+    // 三个结果数组始终同长度、同下标；追加、去重和排序时必须一起维护。
     struct AnalysisResult
     {
         int width = 0;

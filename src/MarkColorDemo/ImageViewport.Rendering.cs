@@ -7,6 +7,7 @@ namespace MarkColorDemo;
 // 只消费 Analysis/Inspection 快照绘制；显示掩膜不能反向参与测色或判定。
 public sealed partial class ImageViewport
 {
+    /// <summary>绘制现有图像和检测证据；可被 WPF 频繁调用，不能在这里读图、检测或修改标准。</summary>
     protected override void OnRender(DrawingContext dc)
     {
         if (pendingFocus)
@@ -117,6 +118,7 @@ public sealed partial class ImageViewport
     }
 
     // Id 是面向操作者的稳定编号；observedIndex 是本张图候选的零基下标。
+    /// <summary>标准图按标准顺序取编号，待测图通过结果行映射；候选序号不等于跨图身份。</summary>
     private int ReferenceId(int observedIndex, ResultRow? row)
     {
         if (inspection == null)

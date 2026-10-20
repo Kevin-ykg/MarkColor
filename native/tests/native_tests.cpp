@@ -1,3 +1,4 @@
+// 原生回归入口：公式参考值、几何匹配和图像合成场景；新增算法分支应补对应断言。
 #include "mark_color.h"
 #include <opencv2/opencv.hpp>
 #include <cmath>

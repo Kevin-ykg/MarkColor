@@ -12,6 +12,7 @@ public partial class MainWindow
     private string? standardFile;
     private string? lastAttempt;
 
+    /// <summary>保存当前标准并清除脏标记；用户取消返回 false，写入异常由调用方处理。</summary>
     private bool SaveStandardCore()
     {
         if (standard == null)
@@ -139,6 +140,7 @@ public partial class MainWindow
         });
     }
 
+    /// <summary>以本次失败的建标图打开恢复对话框；返回参数草稿或 null，不提交主窗口状态。</summary>
     private async Task<DetectionSettings?> AdjustStandardSourceAsync(StandardBuildException problem, DetectionSettings draft)
     {
         StatusLine.Text = "建标需要调整：" + problem.Message;
@@ -166,6 +168,7 @@ public partial class MainWindow
         return dialog.ShowDialog() == true ? dialog.Settings : null;
     }
 
+    /// <summary>展示跨拍摄波动供人工确认；该对话框不会自动放宽阈值，也不证明样品一定合格。</summary>
     private bool ReviewStandard(StandardProfile profile)
     {
         var window = new Window

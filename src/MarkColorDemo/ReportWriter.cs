@@ -39,6 +39,7 @@ public static class ReportWriter
         return "\"" + text.Replace("\"", "\"\"") + "\"";
     }
 
+    /// <summary>写入 UTF-8 BOM 与固定列头；调用方负责释放，非有限数值在数据行中输出为空单元格。</summary>
     public static StreamWriter Open(string path)
     {
         if (Headers.Length != (int)Column.Count)
@@ -60,6 +61,7 @@ public static class ReportWriter
         writer.WriteLine(string.Join(",", values.Select(Cell)));
     }
 
+    /// <summary>按同一标准顺序输出数值；展示字符串不参与计算，缺失数据保留空列位置。</summary>
     public static void Write(TextWriter writer, StandardProfile? standard, Analysis image, Inspection? result)
     {
         if (standard != null && result != null)

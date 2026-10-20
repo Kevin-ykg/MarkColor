@@ -20,6 +20,7 @@ public sealed class Analysis
     // 三个列表严格同下标，Native 已按 X 排序；这个顺序不表示与标准的对应关系。
     public List<MarkQuality> Qualities { get; set; } = [];
 
+    // 快照按约定只读使用；类型本身仍可写，后台处理期间调用方不得修改这些列表。
     public List<Mark> Marks { get; set; } = [];
 
     public List<NativePoint[]> Contours { get; set; } = [];

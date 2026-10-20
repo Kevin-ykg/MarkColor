@@ -36,6 +36,7 @@ namespace mark_color
                              const McColorDifferenceSettings& settings)
     {
         // 1. 由平均色度计算 G，校正 a*，得到 C' 和 h'。
+        // Lab 差异为输入测量值，kL/kC/kH 为无量纲敏感度因子；本函数不决定业务合格阈值。
         const double c1 = std::hypot(a1, b1);
         const double c2 = std::hypot(a2, b2);
         const double meanC = (c1 + c2) / 2;

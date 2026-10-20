@@ -140,6 +140,7 @@ public sealed class VisualReportWriter : IDisposable
     }
 
     // SVG viewBox 保持原图像素坐标，缩略 JPEG 只是背景；轮廓不在缩略图上重新检测。
+    /// <summary>预览可压缩，但 SVG 仍采用原图坐标；轮廓和标签共同缩放，不改变测量结果。</summary>
     private void WriteImage(Analysis? analysis, StandardProfile? standard, Inspection? result, bool reference)
     {
         if (analysis == null || Jpeg(analysis, reference) is not { Length: > 0 } jpeg)
@@ -224,6 +225,7 @@ public sealed class VisualReportWriter : IDisposable
     private static string Swatch(Mark? mark) => mark is Mark value ? $"<span class=swatch style='background:{Inspection.Swatch(value)}'></span>" : "<span class=muted>—</span>";
 
     // 展示行复用 Inspection 的强类型结论；质量失败不能被临时计算的低色差覆盖。
+    /// <summary>复用检测行的结论和质量原因；报告不能绕过测量资格自行给出 OK。</summary>
     private void WriteTable(StandardProfile? standard, Analysis image, Inspection? result)
     {
         writer.Write("<h3>逐点结论</h3><div class=table-wrap><table><thead><tr><th>Mark / 对应墨路</th><th>标准 → 待测</th><th>ΔE00 / 阈值</th><th>结论与原因</th></tr></thead><tbody>");

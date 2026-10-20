@@ -5,6 +5,7 @@ namespace MarkColorDemo;
 /// <summary>启动窗口或执行便携环境自检；自检结果写入运行目录，退出码供部署脚本判断。</summary>
 public partial class App : Application
 {
+    /// <summary>按命令行分派为部署自检或交互窗口；自检不进入正常建标流程。</summary>
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);

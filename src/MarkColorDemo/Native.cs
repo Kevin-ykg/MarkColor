@@ -190,6 +190,7 @@ public static class Native
         }
 
         var config = settings.ToNative();
+        // 只封送 Native 使用的提取参数；质量资格与逐点阈值留在托管层，不随此结构传入。
         Check(mc_analyze(path, in config, out var handle));
         using (handle)
         {
@@ -226,7 +227,7 @@ public static class Native
         }
     }
 
-    /// <summary>标准编号对应的是输出数组下标；ObservedIndex 才是待测点下标，不能混用。</summary>
+    /// <summary>输出按 profile.Marks 的数组顺序排列；StandardMark.Id 是业务编号，ObservedIndex 是待测数组下标。</summary>
     public static (Comparison[], Alignment) Compare(StandardProfile profile, Analysis image)
     {
         var references = profile.Marks.Select(x => x.Value).ToArray();

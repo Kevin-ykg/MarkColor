@@ -1,4 +1,12 @@
-﻿# 交付入口：打包 Release 程序、私有 .NET/VC 运行库和许可，输出带时间戳的独立目录。
+﻿<#
+.SYNOPSIS
+生成含私有运行库、许可证和文件清单的便携交付目录。
+.PARAMETER SkipBuild
+直接使用已有 publish；调用者须先确认该目录是期望交付的 Release 版本。
+.PARAMETER OpenCvSource
+项目缺少 OpenCV 时使用的离线 build 目录。输出保存在 dist 的独立时间戳目录。
+#>
+# 交付入口：打包 Release 程序、私有 .NET/VC 运行库和许可，输出带时间戳的独立目录。
 # SkipBuild 表示复用已验证的 publish；最后记录逐文件 SHA-256，便于核对完整复制。
 param([string]$OpenCvSource, [switch]$SkipBuild)
 $ErrorActionPreference = 'Stop'
@@ -41,10 +49,20 @@ $launch = '@echo off' + "`r`n" + 'set DOTNET_MULTILEVEL_LOOKUP=0' + "`r`n" + '"%
 # 同步私有运行库到 publish，项目根目录的启动脚本也能离线运行。
 Copy-Item -LiteralPath $runtime -Destination (Join-Path $projectRoot 'publish') -Recurse -Force
 Get-ChildItem -LiteralPath $crt.FullName -Filter '*.dll' | Copy-Item -Destination (Join-Path $projectRoot 'publish')
-foreach ($guide in @('升级功能与使用说明.md','相机与圆点尺寸适配说明.md','建标恢复与性能优化说明.md','图标缩放与格式维护说明.md','ΔE00权重与光照一致性说明.md','色差参数与界面简化说明.md','代码规范.md','全项目代码整理说明.md')) {
-    if (Test-Path -LiteralPath (Join-Path $projectRoot $guide)) {
-        Copy-Item -LiteralPath (Join-Path $projectRoot $guide) -Destination $output
-    }
+# 文档位于 docs；保留目录层级，避免复制到根目录后破坏文档间相对链接。
+$documentation = Join-Path $projectRoot 'docs'
+if (Test-Path -LiteralPath $documentation) {
+    $documentOutput = Join-Path $output 'docs'
+    New-Item -ItemType Directory -Path $documentOutput -Force | Out-Null
+    Get-ChildItem -LiteralPath $documentation -Filter '*.md' -File | Copy-Item -Destination $documentOutput
+}
+Copy-Item -LiteralPath (Join-Path $projectRoot 'README.md') -Destination $output
+# README 的界面预览沿用相对路径；交付包无需携带其他本机验证产物。
+$previewImage = Join-Path $projectRoot 'verification\demo-preview.png'
+if (Test-Path -LiteralPath $previewImage) {
+    $previewOutput = Join-Path $output 'verification'
+    New-Item -ItemType Directory -Path $previewOutput -Force | Out-Null
+    Copy-Item -LiteralPath $previewImage -Destination $previewOutput
 }
 $manifest = Get-ChildItem -LiteralPath $output -Recurse -File | ForEach-Object {
     [PSCustomObject]@{ Path=$_.FullName.Substring($output.Length+1); Bytes=$_.Length; SHA256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash }

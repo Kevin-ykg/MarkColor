@@ -1,4 +1,10 @@
-﻿# 自有源码格式入口：默认改写；-Check 只验证，不更新被检查的源码。
+﻿<#
+.SYNOPSIS
+统一自有 C++、C#、XML 和 PowerShell 的格式。
+.PARAMETER Check
+仅检查源码；Roslyn 格式工具自身可能产生 bin/obj。检测差异或语法错误时失败。
+#>
+# 自有源码格式入口：默认改写；-Check 只验证，不更新被检查的源码。
 # 各语言工具分别校验语法/布局；第三方 SDK 和编译生成目录不在整理范围内。
 param([switch]$Check)
 

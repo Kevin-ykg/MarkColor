@@ -92,6 +92,7 @@
       Grid.Row="1"
       Margin="20,16,20,12">
       <!-- 常用动作直接可见；建标方式和文件操作按目的分组。 -->
+      <!-- 操作入口在后台任务期间统一禁用，防止参数和标准被并发修改。 -->
       <WrapPanel
         x:Name="Actions">
         <Button
@@ -370,6 +371,7 @@
               Margin="6,8" />
           </ScrollViewer>
         </Expander>
+        <!-- 结果表消费 Inspection 生成的行；选择只联动视图，不重新判断颜色。 -->
         <DataGrid
           x:Name="ResultsGrid"
           IsReadOnly="True"

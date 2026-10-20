@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(MarkColorNative VERSION 1.0 LANGUAGES CXX)
 # 独立 Native 构建入口；日常 C#/C++ 联合调试使用根目录 MarkColorDemo.sln。
+# 此入口只构建 Native 与原生测试，不生成 WPF、不执行其 DLL 自动复制。
 find_package(OpenCV 4 REQUIRED COMPONENTS core imgproc imgcodecs)
 
 # 新增 Native 源文件时，同步维护此列表及 .vcxproj/.filters。

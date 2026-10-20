@@ -2,6 +2,7 @@
 # 写回 UTF-8 BOM，使 Windows PowerShell 5.1 正确读取中文；-Check 不写回。
 param([switch]$Check)
 $ErrorActionPreference = 'Stop'
+# 检查与改写使用同一文件集合；字符串和 Here-String 不参与缩进改写。
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $files = @(Get-ChildItem -LiteralPath $projectRoot -Filter '*.ps1' -File) + @(Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.ps1' -File)
 $changed = 0

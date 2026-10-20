@@ -57,6 +57,7 @@ int mc_analyze(const wchar_t* path, const McSettings* settings, void** result)
 }
 
 // 读取尺寸和点数，以便托管端分配正确大小的结果缓冲。所有输出指针都由调用方提供。
+// 读取接口的负返回值表示参数无效；并非每个读取接口都会刷新 lastError，不能依赖旧错误文本。
 int mc_result_info(void* result, int* width, int* height, int* count)
 {
     if (!result || !width || !height || !count)

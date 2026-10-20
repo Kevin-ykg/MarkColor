@@ -8,8 +8,10 @@ public static class BatchDetector
 {
     public sealed record Item(string Path, DetectionPipeline.Result? Result, string? Error);
 
+    // Completed 包含成功和处理错误的图像；ReportMs 仅计当前条目编码/写入，不是整批总耗时。
     public sealed record Progress(int Completed, int Total, Item Item, double ReportMs);
 
+    /// <summary>处理调用方提供的稳定参数快照；取消在图像边界生效，已完成条目排空写入报告后才返回。</summary>
     public static async Task RunAsync(
         string[] paths,
         DetectionSettings settings,

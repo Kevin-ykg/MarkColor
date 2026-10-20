@@ -89,6 +89,7 @@ static_assert(sizeof(McQuality) == 80, "McQuality ABI");
 #pragma pack(pop)
 MC_API int mc_abi_version();
 MC_API const char* mc_last_error(); // thread-local UTF-8, copy before next call
+// 成功返回 0 并创建唯一拥有的句柄；失败返回 -1。调用方不可复制句柄后重复释放。
 MC_API int mc_analyze(const wchar_t* path, const McSettings* settings, void** result);
 MC_API int mc_result_info(void* result, int* width, int* height, int* count);
 MC_API int mc_result_timings(void* result, McTimings* timings);
@@ -96,6 +97,7 @@ MC_API int mc_result_timings(void* result, McTimings* timings);
 MC_API int mc_result_bgr(void* result, const uint8_t** pixels, int* stride, int* length);
 MC_API int mc_get_quality(void* result, int index, McQuality* quality);
 MC_API int mc_get_mark(void* result, int index, McMark* mark);
+// capacity 按 McPoint 元素数计；成功返回复制点数，其他读取接口成功返回 0。
 MC_API int mc_get_contour(void* result, int index, McPoint* points, int capacity);
 MC_API void mc_release(void* result);
 MC_API int mc_compare(const McMark* reference, int referenceCount, int refWidth, int refHeight, const McMark* observed,
@@ -103,6 +105,7 @@ MC_API int mc_compare(const McMark* reference, int referenceCount, int refWidth,
                       McComparison* comparisons, McAlignment* alignment);
 MC_API double mc_delta_e00(double l1, double a1, double b1, double l2, double a2, double b2);
 // 新接口显式接收色差参数；旧 mc_compare / mc_delta_e00 始终使用 1/1/1。
+// comparisons 必须容纳 referenceCount 项，按标准数组顺序输出；返回 0 不代表产品颜色合格。
 MC_API int mc_compare_weighted(const McMark* reference, int referenceCount, int refWidth, int refHeight,
                                const McMark* observed, int observedCount, int width, int height,
                                const McMatchSettings* settings, const McColorDifferenceSettings* colorSettings,

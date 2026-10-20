@@ -1,3 +1,4 @@
+// 报告回归覆盖 CSV 列对齐、文本转义及 HTML 状态；它不证明浏览器外观或现场测色准确度。
 using System.IO;
 using MarkColorDemo;
 

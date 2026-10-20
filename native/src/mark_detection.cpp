@@ -113,6 +113,7 @@ namespace mark_color
             }
             for (int polarity : {1, -1})
             {
+                // 记录后续微暗候选的起点，主流程据此施加更严格的边缘质量要求。
                 if (polarity < 0)
                 {
                     negativeStart = contours.size();
@@ -231,6 +232,7 @@ namespace mark_color
         {
             cv::Mat normalized, lab;
             bgr.convertTo(normalized, CV_32FC3, 1.0 / 255.0);
+            // 此处按 sRGB 约定转换相对 Lab，不包含相机标定、光源漂移补偿或标准板校正。
             cv::cvtColor(normalized, lab, cv::COLOR_BGR2Lab);
             return lab; // 浮点 Lab：L*=0..100，a*/b* 带符号，无 8 位编码偏置。
         }
@@ -493,6 +495,7 @@ namespace mark_color
             require(result->marks.size() <= kMaximumCandidateCount,
                     "More than 256 candidates: restrict ROI or tighten shape thresholds.");
         }
+        // 完成全部候选的去重与测量后再排序；颜色均值始终来自未经缩放的原图采样区。
         sortMarksLeftToRight(*result);
         const auto measured = std::chrono::steady_clock::now();
         result->timings = {std::chrono::duration<double, std::milli>(decoded - start).count(),
